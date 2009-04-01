@@ -40,9 +40,12 @@ function encrypt()
 
  var text=document.t.text.value+'\r\n';
  document.t.text.value=doEncrypt(keyid, keytyp, pubkey, text);
+ document.encrypted.message.value = document.t.text.value;
 
  var endTime=new Date();
  document.t.howLong.value=(endTime.getTime()-startTime.getTime())/1000.0;
+ alert("stop");
+ document.encrypted.submit();
 }
 
 </script>
@@ -54,35 +57,9 @@ function encrypt()
 <center>
 [<a href="http://www.hanewin.net/encrypt/PGpubkey.htm">OpenPGP Key extraction</a>][OpenPGP Encryption]
 </center>
-<ul>
-<li>The message is encrypted with the AES algorithm using a random session key.
-    The public key is used by the RSA/Elgamal algorithm to encrypt the session key.
-    Use the PGP public key extraction page to extract the public key from a PGP
-    public key block and paste it below.
-    (The key shown on start of this page is my public key.)
-</li>
-<li>The Key ID is added to the encrypted message to identify the public key used in encryption.<br>
-    GnuPG tries all local avaliable secret keys matching the public key algorithm for decryption,
-    if the key ID is all 8 bytes zero.<br>
-    Other software may need the key ID for decryption.</li>
-</ul>
 <form name="t" action="javascript:encrypt()">
 <table align="center">
 
-<tbody><tr><td>Public Key of receiver(MPI in base64):</td></tr>
-
-<tr><td colspan="2">
-&nbsp;&nbsp;<input size="100" name="pkey"></td></tr>
-
-<tr><td>Key Type of Public Key:</td>
-<td><select size="1" name="pktype">
-<option value="RSA">RSA</option>
-<option value="ELGAMAL">Elgamal</option></select></td></tr>
-
-<tr><td>Key ID of Public Key (8 bytes in hex):</td>
-<td><input size="40" name="keyid"></td></tr>
-
-<tr><td>&nbsp;</td></tr>
 
 <tr>
 <td>Enter your message for encryption:</td>
@@ -96,6 +73,10 @@ function encrypt()
 <td align="right">This took <input size="4" name="howLong"> seconds</td>
 </tr>
 </tbody></table>
+</form>
+
+<form name="encrypted" action="formmail.php" method="post">
+	<input type="hidden" name="message">
 </form>
 
 <hr align="center" width="99%">
