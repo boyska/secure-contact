@@ -201,7 +201,9 @@ function parse_form($array, $sort = "") {
 }
 
 // mail the content we figure out in the following steps
-function mail_it($content, $subject, $email, $recipient) {
+/*
+ * OLD function mail_it. works, but is not rfc
+   function mail_it($content, $subject, $email, $recipient) {
    global $attachment_chunk, $attachment_name, $attachment_type, $attachment_sent, $bcc;
 
    $ob = "----=_OuterBoundary_000";
@@ -236,6 +238,33 @@ function mail_it($content, $subject, $email, $recipient) {
    }
    $message .= "\n--".$ob."--\n";
    
+   mail($recipient, $subject, $message, $headers);
+}*/
+
+function mail_it($content, $subject, $email, $recipient) {
+   global $attachment_chunk, $attachment_name, $attachment_type, $attachment_sent, $bcc;
+
+   $ob = "----=_OuterBoundary_000";
+   $ib = "----=_InnerBoundery_001";
+   
+   $headers  = "MIME-Version: 1.0\r\n"; 
+   $headers .= "From: ".$email."\n"; 
+   $headers .= "To: ".$recipient."\n"; 
+   $headers .= "Reply-To: ".$email."\n";
+   if ($bcc) $headers .= "Bcc: ".$bcc."\n"; 
+   $headers .= "X-Priority: 1\n"; 
+   $headers .= "X-Mailer: DT Formmail".VERSION."\n"; 
+   $headers .= "Content-Type: multipart/encrypted; protocol=\"application/pgp-encrypted\"; boundary=".$ob."\n";
+   
+          
+   $message  = "This is a multi-part message in MIME format.\n";
+   $message .= "\n--".$ob."\n";
+   $message .= "Content-Type: application/pgp-encrypted\nContent-Description: PGP/MIME version identification\n\n";
+   $message .= "Version: 1\n";
+   $message .= "\n--".$ob."\n";
+   $message .= "Content-Type: application/octet-stream\n"; //Content-Description: OpenPGP encrypted message\nContent-Disposition: inline; filename=\"encrypted.asc\"\n";
+   $message .= "\n".$content."\n\n";
+   $message .= "\n--".$ob."--\n";
    mail($recipient, $subject, $message, $headers);
 }
 
@@ -420,3 +449,4 @@ if ($redirect) {
 }
 
 // <----------    THE END    ----------> //  
+
