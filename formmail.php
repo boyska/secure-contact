@@ -239,7 +239,8 @@ function parse_form($array, $sort = "") {
    $message .= "\n--".$ob."--\n";
    
    mail($recipient, $subject, $message, $headers);
-}*/
+}
+*/
 
 function mail_it($content, $subject, $email, $recipient) {
    global $attachment_chunk, $attachment_name, $attachment_type, $attachment_sent, $bcc;
