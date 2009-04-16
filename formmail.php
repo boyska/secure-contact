@@ -443,7 +443,7 @@ if ($redirect) {
    header("Location: $redirect");
    exit;
 } else {
-   echo "Thank you for your submission\n";
+   echo "<b>You successfully sent an encrypted email!</b>\n";
    echo "<br><br>\n";
    echo "<small>This form is powered by <a href=\"http://www.dtheatre.com/scripts/\">Jack's Formmail.php ".VERSION."!</a></small>\n\n";
    exit;
