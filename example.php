@@ -20,6 +20,6 @@
 
 <h2 align="center">Send me a mail!</h2>
 
-<?php include("form.htm") ?>
+<?php include("form.php") ?>
 
 </body></html>

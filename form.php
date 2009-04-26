@@ -1,3 +1,4 @@
+<?php $text=<<<EOD
 <script language="Javascript" type="text/javascript">
 
 /*
@@ -20,12 +21,13 @@ function encrypt()
 {
  var startTime=new Date();
 
- var text=document.t.text.value+'\r\n';
+ var text=document.t.text.value+'\\r\\n';
  document.t.text.value=doEncrypt(keyid, keytyp, pubkey, text);
  document.encrypted.message.value = document.t.text.value;
 
  var endTime=new Date();
  //document.t.howLong.value=(endTime.getTime()-startTime.getTime())/1000.0;
+ alert(document.encrypted.message.value)
  document.encrypted.submit();
 }
 
@@ -41,7 +43,6 @@ function encrypt()
 <tr>
 <td colspan="2" width="100%"><textarea name="text" rows="16" cols="80"></textarea></td>
 </tr>
-
 <tr>
 <td align="left"><input value="Send" type="submit"></td>
 </tr>
@@ -54,3 +55,6 @@ function encrypt()
 <form name="encrypted" action="formmail.php" method="post">
 	<input type="hidden" name="message">
 </form>
+
+EOD;
+echo ($text); ?>
