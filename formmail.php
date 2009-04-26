@@ -29,8 +29,12 @@
 ##############################################################################
 */
 
+$config_file = parse_ini_file('config.ini');
+
 // for ultimate security, use this instead of using the form
-$recipient = "boyska@gmail.com"; // youremail@domain.com
+//$recipient = "boyska@gmail.com"; // youremail@domain.com
+
+$recipient = $config_file['email_address'];
 
 // bcc emails (separate multiples with commas (,))
 $bcc = "";
